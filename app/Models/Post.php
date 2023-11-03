@@ -32,11 +32,18 @@ class Post extends Model
                 $query->where('slug', $category)
                 )
             );
+            // we can also use this code - its similar
             // $query
             //     ->whereExists(fn($query)=>
             //         $query->from('categories')
             //             ->whereColumn('categories.id', 'posts.category_id')
             //             ->where('categories.slug', $category)
             // ));
+
+        $query->when($filters['author'] ?? false,fn($query, $author) => 
+            $query->whereHas('author', fn($query)=>
+                $query->where('username', $author)
+                )
+            );
     }
 }
