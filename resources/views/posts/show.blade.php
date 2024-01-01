@@ -14,7 +14,7 @@
                         <h5 class="font-bold">
                             <a href="/?author={{ $post->author->username }}">{{ $post->author->name }}</a>
                         </h5>
-                        
+
                     </div>
                 </div>
             </div>
@@ -46,15 +46,17 @@
                 <div class="space-y-4 lg:text-lg leading-loose">
                     {!! $post->body !!}
 
-                    
+
                 </div>
             </div>
 
             <section class="col-span-8 col-start-5 mt-10 space-y-6">
-                <x-post-comment />
-                <x-post-comment />
-                <x-post-comment />
-                <x-post-comment />
+                @include ('posts._add-comment-form')
+
+                @foreach ($post->comments as $comment)
+                    <x-post-comment :comment="$comment" />
+                @endforeach
+
             </section>
         </article>
     </main>
